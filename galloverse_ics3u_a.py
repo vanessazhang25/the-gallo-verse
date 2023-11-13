@@ -63,6 +63,12 @@ ghost_y_maggie = 200
 switch_maggie = "right"
 
 # ----------------------
+circle_x_vanessa = 200
+circle_y_vanessa = 200
+angle_vanessa = 0
+radius_vanessa = 100  
+speed_vanessa = 2
+# ----------------------
 
 duncan_glow_x, duncan_glow_y, duncan_glow_radius = 315, 220, 70
 duncan_vignette_x, duncan_vignette_y, duncan_vignette_radius = 320, 240, 250
@@ -427,7 +433,37 @@ while running:
     pygame.draw.rect(screen, (255, 255, 255), (ghost_x_maggie - 73, ghost_y_maggie + 100, 27, 15))
     pygame.draw.circle(screen, (255, 255, 255), (x + ghost_x_maggie - 72, y + ghost_y_maggie + 115), 5)
     pygame.draw.circle(screen, (255, 255, 255), (x + ghost_x_maggie - 50, y + ghost_y_maggie + 115), 5)
+    
+    # VANESSA -------------------------------
 
+ angle_vanessa += speed_vanessa
+
+    # Calculate new x and y coordinates based on the angle
+    circle_x_vanessa = WIDTH // 2 + math.cos(math.radians(angle_vanessa)) * radius_vanessa
+    circle_y_vanessa = HEIGHT // 2 + math.sin(math.radians(angle_vanessa)) * radius_vanessa
+
+    # DRAWING
+    # Must have these coordinates
+    x = 0
+    y = 0
+    width = 640
+    height = 480
+
+    pygame.draw.rect(screen, (10, 10, 40), (x, y, width, height))
+    pygame.draw.circle(screen, (200, 220, 205), (circle_x_vanessa, circle_y_vanessa), 200)
+    pygame.draw.circle(screen, (200, 210, 100), (circle_x_vanessa + 40, circle_y_vanessa), 45)
+    pygame.draw.circle(screen, (200, 210, 100), (circle_x_vanessa - 55, circle_y_vanessa - 70), 42)
+    pygame.draw.circle(screen, (200, 210, 100), (circle_x_vanessa - 80, circle_y_vanessa + 80), 50)
+    pygame.draw.circle(screen, (200, 210, 100), (circle_x_vanessa + 100, circle_y_vanessa + 70), 25)
+    pygame.draw.circle(screen, (200, 210, 100), (circle_x_vanessa + 90, circle_y_vanessa - 80), 30)
+    pygame.draw.circle(screen, (200, 210, 100), (circle_x_vanessa - 155, circle_y_vanessa - 10), 27)
+    pygame.draw.circle(screen, (200, 210, 100), (circle_x_vanessa - 127, circle_y_vanessa - 80), 20)
+    pygame.draw.circle(screen, (200, 210, 100), (circle_x_vanessa + 10, circle_y_vanessa - 150), 27)
+    pygame.draw.circle(screen, (200, 210, 100), (circle_x_vanessa + 150, circle_y_vanessa + 10), 34)
+    pygame.draw.circle(screen, (200, 210, 100), (circle_x_vanessa + 10, circle_y_vanessa + 150), 35)
+    pygame.draw.circle(screen, (200, 210, 100), (circle_x_vanessa + 50, circle_y_vanessa + 130), 25)
+    pygame.draw.circle(screen, (200, 210, 100), (circle_x_vanessa + 100, circle_y_vanessa + 140), 10)
+    pygame.draw.circle(screen, (200, 210, 100), (circle_x_vanessa - 50, circle_y_vanessa - 20), 28)
 
     # DUNCAN -------------------------------
 
@@ -766,6 +802,26 @@ while running:
     #Space Ship
     pygame.draw.polygon(screen, (tri_r_lam, tri_g_lam, tri_b_lam), [(x+tri_x_lam, y+tri_y_lam+150), (x+tri_x_lam, y+tri_y_lam+200), (x+tri_x_lam+100, y+tri_y_lam+175)])
     
+        
+    # ----------------------------------------------------------------------------------------
+
+    # Must have these coordinates
+    x = 1920
+    y = 1440
+    width = 640
+    height = 480
+
+    frames_gallo += 1
+    text_scale_gallo = abs((math.sin(frames_gallo / 30) - 3) / 3)
+    
+
+    # Rather than screen.fill, draw a rectangle
+    screen.blit(bg_gallo, (x, y))
+
+    screen.blit(welcome_text_gallo, (x + width//2 - welcome_text_gallo.get_width()//2, y + height//3 - welcome_text_gallo.get_height()//2))
+    scaled_text = pygame.transform.scale(text_gallo, (text_gallo.get_width() * text_scale_gallo, text_gallo.get_height() * text_scale_gallo))
+    screen.blit(scaled_text, (x + width//2 - scaled_text.get_width()//2, y + height//2 - scaled_text.get_height()//2))
+
     # Christian -------------------------------------------------------------------------------------
     x = 3840
     y = 2880
@@ -828,6 +884,8 @@ while running:
         (x+350, y+229)
     ]
     pygame.draw.polygon(screen, (0, 0, 0), road_center_matros)
+
+
 
     # Car 1
     car_body_matros = [
@@ -929,25 +987,6 @@ while running:
     pygame.draw.polygon(screen, (255, 0, 0), b_car_backlight1)
     pygame.draw.polygon(screen, (255, 0, 0), b_car_backlight2)
     pygame.draw.polygon(screen, (0, 0, 99), b_car_windshield)
-    
-    # ----------------------------------------------------------------------------------------
-
-    # Must have these coordinates
-    x = 1920
-    y = 1440
-    width = 640
-    height = 480
-
-    frames_gallo += 1
-    text_scale_gallo = abs((math.sin(frames_gallo / 30) - 3) / 3)
-    
-
-    # Rather than screen.fill, draw a rectangle
-    screen.blit(bg_gallo, (x, y))
-
-    screen.blit(welcome_text_gallo, (x + width//2 - welcome_text_gallo.get_width()//2, y + height//3 - welcome_text_gallo.get_height()//2))
-    scaled_text = pygame.transform.scale(text_gallo, (text_gallo.get_width() * text_scale_gallo, text_gallo.get_height() * text_scale_gallo))
-    screen.blit(scaled_text, (x + width//2 - scaled_text.get_width()//2, y + height//2 - scaled_text.get_height()//2))
 
 
     # LEAVE HERE --------------------------------------------
